@@ -1,0 +1,35 @@
+((*- extends 'article.tplx' -*))
+
+((* block input_group *))
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[a4paper, left=3cm, right=3cm, top=3cm, bottom=3cm]{geometry}
+((* end block input_group *))
+
+((* block packages *))
+% Add any additional LaTeX packages you may need
+((* end block packages *))
+
+((* block body *))
+\begin{document}
+((* block in_prompt *))
+\textbf{In [*]:}
+((* end block in_prompt *))
+
+((* block output_wrapper *))
+\begin{verbatim}
+{{ output.text | strip_ansi | latex_escape | highlight_code(ipython_config=true) }}
+\end{verbatim}
+((* end block output_wrapper *))
+
+((* block markdowncell *))
+((* block superscript *))
+\textsuperscript{ {{ cell.source | replace("^", "") | replace("\\textasciicircum", "^") | escape_latex }} }
+((* end block superscript *))
+
+{{ super() }}
+((* end block markdowncell *))
+
+\end{document}
+((* end block body *))
